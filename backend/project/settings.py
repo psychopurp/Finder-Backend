@@ -44,7 +44,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 # 重载User模型
-# AUTH_USER_MODEL = 'user.UserProfile'
+AUTH_USER_MODEL = 'user.UserProfile'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'user',
+    'address'
 ]
 
 MIDDLEWARE = [
