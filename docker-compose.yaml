@@ -4,7 +4,7 @@ database:
     volumes:
         - pgdata:/var/lib/postgresql/data/
     environment:
-        POSTGRES_USER: django
+        POSTGRES_USER: finder
 
 backend:
     build: ./backend
@@ -21,9 +21,9 @@ backend:
         - database
     environment:
         DEBUG: "true"
-        DATABASE_NAME: django 
-        DATABASE_USER: django
-        DATABASE_PASSWORD: django
+        DATABASE_NAME: finder 
+        DATABASE_USER: finder
+        DATABASE_PASSWORD: finder
         DATABASE_SERVICE_HOST: database
         SQL: "true"
 
