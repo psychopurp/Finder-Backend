@@ -14,6 +14,7 @@ import os
 import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import time
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -28,7 +29,6 @@ SECRET_KEY = '@neogthxj4taue=-xh2pl_8te1^&(ldiyalc5hl#ng(opivsn%'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Websocket配置
 # ASGI_APPLICATION = 'project.routing.APPLICATION'
@@ -153,6 +153,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'media'),
     STATIC_ROOT_PATH
 ]
+
+OPEN_TIME = int(time.time())
 
 # 跨域设置, flutter项目应该不需要
 # CORS_ALLOW_CREDENTIALS = True
