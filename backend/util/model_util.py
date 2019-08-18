@@ -6,6 +6,8 @@ import time
 
 from django.db import models
 
+from util.log_util import log
+
 
 def get_time():
     return str(int(time.time()))
@@ -126,3 +128,20 @@ def str_page_to_int(page: str) -> int:
 
 def error_return(error):
     return {"status": True, "error": error}
+
+
+def from_id_get_object(obj_id, obj):
+    result = None
+    try:
+        obj_id = int(obj_id)
+    except TypeError as e:
+        log(e)
+        return None
+    except ValueError as e:
+        log(e)
+        return None
+    try:
+        result = obj.objects.get(id=obj_id)
+    except obj.DoesNotExist:
+        return None
+    return result
