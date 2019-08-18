@@ -41,8 +41,5 @@ def get_topic_comments(request):
                                       ['id', ('sender', model_to_dict, ['nickname', 'avatar', 'id']),
                                        ('content', "to_python"), 'refer_comment', 'root'])
     for i in result['data']:
-        if i['root']:
-            i['has_reply'] = True
-        else:
-            i['has_reply'] = len(TopicComment.objects.filter(root=TopicComment.objects.get(i['id']))) != 0
+        i['has_reply'] = i['root'] or len(TopicComment.objects.filter(root=TopicComment.objects.get(i['id']))) != 0
     return JsonResponse(result)
