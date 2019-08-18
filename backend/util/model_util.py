@@ -131,7 +131,6 @@ def error_return(error):
 
 
 def from_id_get_object(obj_id, obj):
-    result = None
     try:
         obj_id = int(obj_id)
     except TypeError as e:
