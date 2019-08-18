@@ -51,7 +51,8 @@ def get_result_by_query_page(model, query=None, page=0, props=None) -> dict:
     else:
         data = model.objects.filter(query)
     result, total_page = get_query_set_by_page(data, page)
-    return {"data": query_set_to_list(result, props), "total_page": total_page, "status": True}
+    return {'data': query_set_to_list(result, props), 'total_page': total_page, 'status': True,
+            'has_more': page * 10 < total_page}
 
 
 def get_query_set_by_page(query, page: int, page_size: int = 10) -> (all, int):
