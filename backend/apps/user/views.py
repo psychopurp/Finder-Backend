@@ -26,7 +26,6 @@ def get_user_profile(request):
 def modify_profile(request):
     data = json.loads(request.body)
     user = request.user
-    user = request.user
     if not isinstance(user, UserProfile):
         return JsonResponse(error_return(ErrorInformation.no_such_topic))
     user.nickname = data.get('nickname')

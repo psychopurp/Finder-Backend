@@ -1,6 +1,6 @@
-'''
+"""
 活动的模型
-'''
+"""
 from django.db import models
 from user.models import UserProfile
 
