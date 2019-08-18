@@ -4,8 +4,6 @@
 import random
 import time
 
-from django.db import models
-
 from util.log_util import log
 
 
@@ -119,9 +117,9 @@ def str_page_to_int(page: str) -> int:
         page = 0
     try:
         page = int(page)
-    except TypeError as e:
+    except TypeError:
         page = 0
-    except ValueError as e:
+    except ValueError:
         page = 0
     return page
 
