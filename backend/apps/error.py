@@ -1,6 +1,11 @@
 class ErrorInformation:
-    login_require = "请先登录"
-    authority_error = "权限不足"
-    request_error = "请求类型错误"
-    no_such_topic = "没有找到该主题"
-    no_such_user = "没有找到该用户"
+    login_require = '请先登录'
+    authority_error = '权限不足'
+    request_error = '请求类型错误'
+    no_such_topic = '没有找到该主题'
+    no_such_user = '没有找到该用户'
+    create_fail = '创建失败'
+    param_lost = '缺少参数'
+    user_not_found = '未找到该用户'
+    major_not_found = '未找到该专业'
+    school_not_found = '未找到该学校'

@@ -1,47 +1,45 @@
-from django.shortcuts import render
-from django.http import HttpRequest, JsonResponse
-from util.method_util import request_method_check, no_request_arg
-from user.models import UserProfile
 import json
-from util.model_util import query_set_to_list, model_to_dict
-from address.models import Province, City, School, Major
-from error_dictionary import ErrorInformation
 from datetime import datetime
 
+from django.http import JsonResponse
 
-# Create your views here.
+from address.models import School, Major
+from error import ErrorInformation
+from user.models import UserProfile
+from util.login_util import login_require
+from util.method_util import request_method_check
+from util.model_util import model_to_dict, error_return
+
+
 @request_method_check('GET')
-@no_request_arg
+@login_require
 def get_user_profile(request):
     user = request.user
-    profile = UserProfile.objects.filter(id=user.id)
-    if not profile:
-        return JsonResponse({'status': False, 'error': ErrorInformation.user_not_found})
-    profile = model_to_dict(profile[0])
-    profile['major'] = profile['major'].name
-    profile['school'] = profile['school'].name
-    return JsonResponse({'data': profile, 'status': True})
+    if not isinstance(user, UserProfile):
+        return JsonResponse(error_return(ErrorInformation.no_such_topic))
+    return JsonResponse(
+        {'data': model_to_dict(user, ['nickname', 'phone', 'avatar', 'introduction', 'birthday', ('major', 'name'),
+                                      ('school', 'name')]), 'status': True})
 
 
 @request_method_check('POST')
-@no_request_arg
 def modify_profile(request):
     data = json.loads(request.body)
     user = request.user
-    profile = UserProfile.objects.filter(id=user.id)
-    if not profile:
-        return JsonResponse({'status': False, 'error': ErrorInformation.user_not_found})
-    profile.nickname = data.get('nickname')
-    profile.avatar = data.get('avatar')
-    profile.introduction = data.get('introduction')
-    profile.birthday = datetime.fromtimestamp(data.get('birthday'))
+    user = request.user
+    if not isinstance(user, UserProfile):
+        return JsonResponse(error_return(ErrorInformation.no_such_topic))
+    user.nickname = data.get('nickname')
+    user.avatar = data.get('avatar')
+    user.introduction = data.get('introduction')
+    user.birthday = datetime.fromtimestamp(data.get('birthday'))
     majors = Major.objects.filter(name=data.get('major'))
     if not majors:
         return JsonResponse({'status': False, 'error': ErrorInformation.major_not_found})
-    profile.major = majors[0]
+    user.major = majors[0]
     schools = School.objects.filter(name=data.get('school'))
     if not schools:
         return JsonResponse({'status': False, 'error': ErrorInformation.school_not_found})
-    profile.school = schools[0]
-    profile.save()
+    user.school = schools[0]
+    user.save()
     return JsonResponse({'status': True})
