@@ -31,7 +31,10 @@ def model_to_dict(model, props=None) -> dict:
         if isinstance(prop, str):
             result_dict[prop] = model.__getattribute__(prop)
         elif isinstance(prop, type(get_time)):
-            result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]))
+            if len(prop) > 2:
+                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]), *prop[2:])
+            else:
+                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]))
         else:
             result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])()
     return result_dict
@@ -119,3 +122,7 @@ def str_page_to_int(page: str) -> int:
     except ValueError as e:
         page = 0
     return page
+
+
+def error_return(error):
+    return {"status": True, "error": error}

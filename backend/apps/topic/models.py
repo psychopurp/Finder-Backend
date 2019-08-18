@@ -31,11 +31,12 @@ class TopicComment(models.Model):
     """
     refer_comment为空则为评论，否则为回复
     """
-    refer = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.TextField()
     create_time = models.DateTimeField(default=datetime.now)
     refer_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    root = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = '话题评论'
@@ -43,6 +44,6 @@ class TopicComment(models.Model):
 
     def __str__(self):
         if self.refer_comment:
-            return self.sender + '回复了' + '话题（' + self.refer + ')'
+            return self.sender.nickname + '回复了' + '话题（' + self.topic.title + ')'
         else:
-            return self.sender + '评论了' + '话题（' + self.refer + ')'
+            return self.sender.nickname + '评论了' + '话题（' + self.topic.title + ')'
