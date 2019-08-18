@@ -7,7 +7,8 @@ from util.model_util import query_set_to_list, from_id_get_object
 
 
 @request_method_check('GET')
-def get_provinces(request):
+@no_request_arg
+def get_provinces():
     return JsonResponse({'data': query_set_to_list(Province.objects.all()), 'status': True})
 
 
