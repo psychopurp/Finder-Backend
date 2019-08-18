@@ -9,7 +9,7 @@ class ActivityCategory(models.Model):
     category_name = models.CharField(max_length=50, verbose_name='类别名称')
 
 
-class Avtivity(models.Model):
+class Activity(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     sponsor = models.CharField(max_length=128, verbose_name='主办方')
     title = models.CharField(max_length=128)
