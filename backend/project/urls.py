@@ -12,7 +12,6 @@ django_admin.autodiscover()
 # See: https://docs.djangoproject.com/en/dev/topics/http/urls/
 urlpatterns = \
     [
-        path('index/', index, name='index_page'),
         path('admin/', django_admin.site.urls),
         re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
         re_path(r'^static/(?P<path>.*)$', serve,
