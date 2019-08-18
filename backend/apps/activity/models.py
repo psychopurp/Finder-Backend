@@ -15,6 +15,6 @@ class Avtivity(models.Model):
     start_time = models.DateTimeField(verbose_name='开始时间')
     end_time = models.DateTimeField(verbose_name='结束时间')
     description = models.TextField(verbose_name='详细描述')
-    category = models.ManyToManyField(ActivityCategory)
+    categories = models.ManyToManyField(ActivityCategory)
     def __str__(self):
         return '活动' + self.title
