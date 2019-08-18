@@ -2,7 +2,7 @@ from django.http import JsonResponse
 
 from address.models import Province, City, School, Major
 from error import ErrorInformation
-from util.method_util import request_method_check
+from util.method_util import request_method_check, no_request_arg
 from util.model_util import query_set_to_list, from_id_get_object
 
 
@@ -35,5 +35,6 @@ def get_schools(request):
 
 
 @request_method_check('GET')
-def get_majors(request):
+@no_request_arg
+def get_majors():
     return JsonResponse({'data': query_set_to_list(Major.objects.all()), 'status': True})

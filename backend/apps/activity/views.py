@@ -14,7 +14,11 @@ from .models import Activity, ActivityCategory
 
 @request_method_check('GET')
 def get_activities(request):
-    query = Q(title__contains=request.GET.get('query')) | Q(end_time__gt=datetime.now())
+    query = request.GET.get('query')
+    if query:
+        query = Q(title__contains=query) | Q(end_time__gt=datetime.now())
+    else:
+        query = Q(end_time__gt=datetime.now())
     return JsonResponse(get_result_by_query_page(Activity, query, str_page_to_int(request.GET.get('page'))))
 
 
