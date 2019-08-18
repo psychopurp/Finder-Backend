@@ -2,9 +2,11 @@ database:
     restart: always
     image: postgres:latest
     volumes:
-        - pgdata:/var/lib/postgresql/data/
+        - pgdatadb:/var/lib/postgresql/data/
     environment:
         POSTGRES_USER: finder
+        POSTGRES_PASSWORD: finder
+        POSTGRES_DB: finder
 
 backend:
     build: ./backend
