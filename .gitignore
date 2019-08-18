@@ -1,0 +1,36 @@
+.DS_Store
+debug.log
+log
+
+# Python bytecode:
+*.py[co]
+__pycache__
+
+# Packaging files:
+*.egg*
+
+# Editor temp files:
+*.swp
+*~
+
+# Sphinx docs:
+build
+
+.coverage
+
+# SQLite3 database files:
+*.db
+
+# Celerybeat scheduler file:
+celerybeat-schedule
+ENV
+
+# Media file:
+backend/project/media/
+media
+
+migrations
+
+venv
+.idea
+.coverage
