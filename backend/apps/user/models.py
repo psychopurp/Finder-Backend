@@ -4,7 +4,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from ..address.models import Major, School
+from address.models import Major, School
 
 
 class UserProfile(AbstractUser):

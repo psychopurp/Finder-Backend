@@ -1,7 +1,10 @@
+'''
+话题的模型
+'''
 from django.db import models
 from datetime import datetime
-from ..address.models import School
-from ..user.models import UserProfile
+from address.models import School
+from user.models import UserProfile
 
 
 class Topic(models.Model):
