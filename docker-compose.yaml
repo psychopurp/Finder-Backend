@@ -25,4 +25,5 @@ backend:
         DATABASE_USER: django
         DATABASE_PASSWORD: django
         DATABASE_SERVICE_HOST: database
+        SQL: "true"
 
