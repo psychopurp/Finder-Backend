@@ -16,7 +16,7 @@ backend:
     volumes:
         - ./backend:/django
     ports:
-        - "8100:8100"
+        - "8000:8000"
     links:
         - database
         - redis_database
