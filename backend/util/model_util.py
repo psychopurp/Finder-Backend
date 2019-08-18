@@ -4,7 +4,7 @@
 import random
 import time
 
-from django.db import models
+from util.log_util import log
 
 
 def get_time():
@@ -31,7 +31,10 @@ def model_to_dict(model, props=None) -> dict:
         if isinstance(prop, str):
             result_dict[prop] = model.__getattribute__(prop)
         elif isinstance(prop, type(get_time)):
-            result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]))
+            if len(prop) > 2:
+                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]), *prop[2:])
+            else:
+                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]))
         else:
             result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])()
     return result_dict
@@ -114,8 +117,28 @@ def str_page_to_int(page: str) -> int:
         page = 0
     try:
         page = int(page)
-    except TypeError as e:
+    except TypeError:
         page = 0
-    except ValueError as e:
+    except ValueError:
         page = 0
     return page
+
+
+def error_return(error):
+    return {"status": True, "error": error}
+
+
+def from_id_get_object(obj_id, obj):
+    try:
+        obj_id = int(obj_id)
+    except TypeError as e:
+        log(e)
+        return None
+    except ValueError as e:
+        log(e)
+        return None
+    try:
+        result = obj.objects.get(id=obj_id)
+    except obj.DoesNotExist:
+        return None
+    return result
