@@ -1,6 +1,6 @@
-'''
+"""
 话题的模型
-'''
+"""
 from django.db import models
 from datetime import datetime
 from address.models import School
@@ -8,9 +8,9 @@ from user.models import UserProfile
 
 
 class Topic(models.Model):
-    '''
+    """
     school为空则为校际话题，否则为校内话题
-    '''
+    """
     title = models.CharField(max_length=30)
     image = models.CharField(max_length=128, null=True, blank=True)
     create_time = models.DateTimeField(default=datetime.now)
@@ -28,9 +28,9 @@ class Topic(models.Model):
 
 
 class TopicComment(models.Model):
-    '''
+    """
     refer_comment为空则为评论，否则为回复
-    '''
+    """
     refer = models.ForeignKey(Topic, on_delete=models.CASCADE)
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.TextField()
