@@ -3,7 +3,6 @@ from django.http import JsonResponse
 
 from error import ErrorInformation
 from topic.models import Topic, TopicComment
-from util.log_util import log
 from util.method_util import request_method_check
 from util.model_util import get_result_by_query_page, str_page_to_int, error_return, model_to_dict, from_id_get_object
 
