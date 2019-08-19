@@ -9,3 +9,6 @@ class ErrorInformation:
     user_not_found = '未找到该用户'
     major_not_found = '未找到该专业'
     school_not_found = '未找到该学校'
+    image_fail = '图片上传失败'
+    unsupported_type = '不支持的类型'
+    login_fail = '用户名或密码错误'
