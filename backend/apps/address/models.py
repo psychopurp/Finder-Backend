@@ -26,7 +26,7 @@ class City(models.Model):
 
 class School(models.Model):
     name = models.CharField(max_length=200, verbose_name='学校', unique=True)
-    image = models.CharField(max_length=200)
+    image = models.CharField(max_length=200, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     introduction = models.TextField()
 

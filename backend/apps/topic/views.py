@@ -59,7 +59,7 @@ def add_topic_comment(request):
     else:
         refer = None
         root = None
-    comment = TopicComment.objects.create(topic=topic, sender=user, content=content, refer_comment=refer, root=root)
+    comment = TopicComment.objects.create(topic=topic, sender=user, content=content, refer=refer, root=root)
     if not comment:
         return JsonResponse(error_return(ErrorInformation.create_fail))
     return JsonResponse({'status': True})

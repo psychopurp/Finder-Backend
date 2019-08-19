@@ -35,15 +35,16 @@ class TopicComment(models.Model):
     sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     content = models.TextField()
     create_time = models.DateTimeField(default=datetime.now)
-    refer_comment = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
-    root = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
+    refer = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True,
+                              related_name='refer_comment')
+    root = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='root_comment')
 
     class Meta:
         verbose_name = '话题评论'
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        if self.refer_comment:
+        if self.refer:
             return self.sender.nickname + '回复了' + '话题（' + self.topic.title + ')'
         else:
             return self.sender.nickname + '评论了' + '话题（' + self.topic.title + ')'
