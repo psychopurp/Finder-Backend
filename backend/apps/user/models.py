@@ -21,9 +21,9 @@ class UserProfile(AbstractUser):
     phone = models.CharField(max_length=11, unique=True, verbose_name='电话')
     avatar = models.CharField(max_length=128, blank=True, null=True, verbose_name='头像')
     introduction = models.TextField(blank=True, null=True, verbose_name='自我介绍')
-    birthday = models.DateField(verbose_name='出生日期')
-    major = models.ForeignKey(Major, on_delete=models.CASCADE)
-    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    birthday = models.DateField(verbose_name='出生日期', blank=True, null=True)
+    major = models.ForeignKey(Major, on_delete=models.CASCADE, blank=True, null=True)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = '用户'
