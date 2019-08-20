@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'user',
     'address',
     'topic',
-    'activity'
+    'activity',
+    'recommend'
 ]
 
 MIDDLEWARE = [
