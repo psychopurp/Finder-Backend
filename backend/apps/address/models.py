@@ -23,6 +23,9 @@ class City(models.Model):
         verbose_name = '城市'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.name
+
 
 class School(models.Model):
     name = models.CharField(max_length=200, verbose_name='学校', unique=True)
