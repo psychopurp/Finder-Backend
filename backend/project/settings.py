@@ -58,7 +58,9 @@ INSTALLED_APPS = [
     'address',
     'topic',
     'activity',
-    'recommend'
+    'recommend',
+    'dialog',
+    'recruit'
 ]
 
 MIDDLEWARE = [
