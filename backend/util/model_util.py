@@ -22,9 +22,12 @@ def model_to_dict(model, props=None) -> dict:
     """
     if not props:
         result_dict = model.__dict__
+        deletes = []
         for key in result_dict:
             if key.startswith("_"):
-                del result_dict[key]
+                deletes.append(key)
+        for key in deletes:
+            del result_dict[key]
         return result_dict
     result_dict = {}
     for prop in props:
