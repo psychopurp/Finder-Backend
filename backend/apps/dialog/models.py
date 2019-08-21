@@ -15,4 +15,4 @@ class Dialog(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.sender.__str__() + '向' + self.receiver.__str__() + '发送消息'
+        return str(self.sender) + '向' + str(self.receiver) + '发送消息'

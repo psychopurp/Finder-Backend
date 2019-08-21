@@ -10,25 +10,6 @@ class CandidateStatus:
     ACCEPT = 2
 
 
-
-class Candidate(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    time = models.DateTimeField(default=datetime.now)
-    information = models.TextField()
-    status = models.IntegerField(
-        choices=(
-            (CandidateStatus.REJECT, '拒绝'), (CandidateStatus.WAITING, '等待'), (CandidateStatus.ACCEPT, '接受')
-        ), default=CandidateStatus.WAITING
-    )
-
-    class Meta:
-        verbose_name = '应聘者'
-        verbose_name_plural = verbose_name
-
-    def __str__(self):
-        return self.user
-
-
 class RecruitType(models.Model):
     name = models.CharField(max_length=15, unique=True)
 
@@ -45,7 +26,6 @@ class Recruit(models.Model):
     time = models.DateTimeField(default=datetime.now)
     title = models.CharField(max_length=100)
     introduction = models.TextField()
-    candidates = models.ManyToManyField(Candidate)
     type = models.ManyToManyField(RecruitType)
 
     class Meta:
@@ -54,3 +34,22 @@ class Recruit(models.Model):
 
     def __str__(self):
         return '招募:' + self.title
+
+
+class Candidate(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    time = models.DateTimeField(default=datetime.now)
+    information = models.TextField()
+    recruit = models.ForeignKey(Recruit, on_delete=models.CASCADE)
+    status = models.IntegerField(
+        choices=(
+            (CandidateStatus.REJECT, '拒绝'), (CandidateStatus.WAITING, '等待'), (CandidateStatus.ACCEPT, '接受')
+        ), default=CandidateStatus.WAITING
+    )
+
+    class Meta:
+        verbose_name = '应聘者'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return str(self.user) + "参与应聘: " + self.recruit.title
