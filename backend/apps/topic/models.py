@@ -1,8 +1,10 @@
 """
 话题的模型
 """
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 from address.models import School
 from user.models import UserProfile
 

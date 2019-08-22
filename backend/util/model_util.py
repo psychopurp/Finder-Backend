@@ -4,6 +4,8 @@
 import random
 import time
 
+from django.db import models
+
 from util.log_util import log
 
 
@@ -31,8 +33,10 @@ def model_to_dict(model, props=None) -> dict:
         return result_dict
     result_dict = {}
     for prop in props:
-        if isinstance(prop, str):
+        if isinstance(prop, str) or len(prop) == 1:
             result_dict[prop] = model.__getattribute__(prop)
+            if isinstance(result_dict[prop], models.Model):
+                result_dict[prop] = model_to_dict(result_dict[prop])
         elif isinstance(prop[1], str):
             if isinstance(model.__getattribute__(prop[0]).__getattribute__(prop[1]), type(get_time)):
                 result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])(*prop[2:])
