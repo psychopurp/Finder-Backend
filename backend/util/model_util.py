@@ -33,16 +33,13 @@ def model_to_dict(model, props=None) -> dict:
     for prop in props:
         if isinstance(prop, str):
             result_dict[prop] = model.__getattribute__(prop)
-        elif isinstance(prop[1], type(get_time)):
-            if len(prop) > 2:
-                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]), *prop[2:])
-            else:
-                result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]))
-        else:
+        elif isinstance(prop[1], str):
             if isinstance(model.__getattribute__(prop[0]).__getattribute__(prop[1]), type(get_time)):
-                result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])()
+                result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])(*prop[2:])
             else:
                 result_dict[prop[0]] = model.__getattribute__(prop[0]).__getattribute__(prop[1])
+        else:
+            result_dict[prop[0]] = prop[1](model.__getattribute__(prop[0]), *prop[2:])
     return result_dict
 
 
